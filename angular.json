@@ -24,6 +24,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -88,6 +89,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -117,8 +119,17 @@
               "devServerTarget": "lol-hub-front:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "@netlify-builder/deploy:deploy",
+          "options": {
+            "outputPath": "dist/lol-hub-front",
+            "netlifyToken": "",
+            "siteId": "e204bbda-c243-4c71-b3ee-e357b021ca7c"
+          }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "lol-hub-front"
 }
