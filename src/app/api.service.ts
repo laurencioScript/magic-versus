@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class ApiService {
-  private apiUrl: string = 'http://localhost:3000';
+  private apiUrl: string = 'https://api-magic-versus.herokuapp.com';
 
   constructor(public http: HttpClient,) { 
   }
