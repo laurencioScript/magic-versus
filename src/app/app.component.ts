@@ -11,6 +11,8 @@ import {MatProgressSpinner} from '@angular/material/progress-spinner';
 import {MatButton} from '@angular/material/button';
 import {MatList} from '@angular/material/list';
 import {MatIconModule} from '@angular/material/icon';
+import {MatGridList} from '@angular/material/grid-list';
+import {MatTable} from '@angular/material/table';
 
 @Component({
   selector: 'app-root',
@@ -28,7 +30,8 @@ export class AppComponent {
   teamBlue : any = [{},{},{},{},{}];
   teamRed : any = [{},{},{},{},{}];
   wins : any = 'blue';
-  loading : boolean = true;
+  loadingRanking : boolean = true;
+  loadingMatch : boolean = true;
 
   constructor(private apiService: ApiService){    
     this.load()
@@ -37,12 +40,33 @@ export class AppComponent {
   async load(){
     this.champions = await this.apiService.getChampions();
     this.summoners = await this.apiService.getSummoners();
-    this.matchs = await this.apiService.getMatch();
-    console.log(this.matchs);
+    this.updateMatch();
+    this.updateRanking();
     
-    this.rankingSummoner = await this.apiService.getRanking();
-    this.loading = false;
   }
+
+  changedTab(value){
+    if(value == 0){
+      this.updateRanking();
+    }
+    else if(value == 1){
+      this.updateMatch();
+    }
+  }
+
+  async updateRanking(){
+    this.loadingRanking = true;
+    this.rankingSummoner = await this.apiService.getRanking();
+    this.loadingRanking = false;
+  }
+
+  async updateMatch(){
+    this.loadingMatch = true;
+    this.matchs = await this.apiService.getMatch();
+    this.loadingMatch = false;
+  }
+
+
 
   async createMatch(){
     let summoners = [];
@@ -79,5 +103,9 @@ export class AppComponent {
     this.teamRed  = [{},{},{},{},{}];
   }
 
+
+  filterTeam(summoners,team){
+    return summoners.filter(summoner=>summoner.team == team);
+  }
 
 }

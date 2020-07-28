@@ -1,45 +1,58 @@
 <div id="content">
-  <mat-tab-group  mat-align-tabs="center">
-    <mat-tab label="Ranking" > 
-      <div *ngIf="loading" style=" display:flex; align-items: center; flex-direction: column; margin: 50px;">
+  <mat-tab-group  mat-align-tabs="center" animationDuration="0ms" (selectedIndexChange)="changedTab($event)">
+    <mat-tab label="Ranking"> 
+
+      <div *ngIf="loadingRanking" class="spinner-loading">
         <mat-spinner></mat-spinner>
       </div>
-      <mat-card *ngFor="let summoner of rankingSummoner;" class="card-ranking">
-
-        <mat-card-header>
-        
-          <img class="logo"  mat-card-avatar src={{summoner.profileIconId}} >
-          <mat-card-title>{{summoner.summonerName}}</mat-card-title>
-          <mat-card-subtitle>Vitórias: {{summoner.wins}} / Derrotas: {{summoner.lose}} </mat-card-subtitle>
-          <mat-card-subtitle>KDA {{summoner.kill}} / {{summoner.death}} / {{summoner.assist}} </mat-card-subtitle>
-        </mat-card-header>
-      
-      </mat-card>
-    
+      <div *ngIf="!loadingRanking">
+        <mat-card  *ngFor="let summoner of rankingSummoner; index as i"  class="card-ranking">
+          <h2 style="text-align: right;">{{i+1}}#</h2>
+          <mat-card-header>        
+            <img class="logo"  mat-card-avatar src={{summoner.profileIconId}} >
+            <mat-card-title>{{summoner.summonerName}}</mat-card-title>
+            <mat-card-subtitle>KDA {{summoner.kill}} | {{summoner.death}} | {{summoner.assist}}</mat-card-subtitle>
+            <mat-card-subtitle>Vitórias : {{summoner.wins}} | Derrotas: {{summoner.lose}}</mat-card-subtitle>
+          </mat-card-header>
+        </mat-card>
+      </div>
     
     </mat-tab>
-    <mat-tab label="History"> 
-    
-      <mat-card *ngFor="let match of matchs;" class="card-ranking">
-        <mat-card-content>
-          <mat-list role="list">
-            <mat-card  role="listitem" *ngFor="let summoner of match.summoners;">
-              <mat-card-header>        
-                <img class="logo"  mat-card-avatar src={{summoner.champion.img_profile}} >
-                <mat-card-title style="display: flex; align-items: center;">
-                  <mat-icon aria-hidden="false" [ngClass]="{'blue': summoner.team == 'blue', 'red': summoner.team != 'blue'}">label</mat-icon>
-                   {{summoner.summonerName}}
-                </mat-card-title>                
-                <mat-card-subtitle>KDA {{summoner.kill}} / {{summoner.death}} / {{summoner.assist}} </mat-card-subtitle>
-                <mat-card-subtitle *ngIf="summoner.wins == 'true'"> Vitoria</mat-card-subtitle>
-                <mat-card-subtitle *ngIf="summoner.wins != 'true'"> Derrota</mat-card-subtitle>
-              </mat-card-header>
-              
-            </mat-card >
-          </mat-list>
-        </mat-card-content>
-      </mat-card>
-
+    <mat-tab label="History" > 
+      <div *ngIf="loadingMatch" class="spinner-loading">
+        <mat-spinner></mat-spinner>
+      </div>
+      <div *ngIf="!loadingMatch">
+        <mat-card *ngFor="let match of matchs;" class="card-history">
+          <mat-card-header>
+            <mat-card-title *ngIf="filterTeam(match.summoners,'blue')[0].wins == 'true'">Vitoria do Time Azul</mat-card-title>
+            <mat-card-title *ngIf="filterTeam(match.summoners,'blue')[0].wins != 'true'">Vitoria do Time Vermelho</mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="content-history">
+            <div id="blue-team" >
+              <mat-card class="blue" *ngFor="let summoner of filterTeam(match.summoners,'blue');">
+                <mat-card-header >        
+                  <img class="logo-champion"  mat-card-avatar src={{summoner.champion.img_profile}} >
+                  <mat-card-title style="display: flex; align-items: center;"> {{summoner.summonerName}} </mat-card-title>                
+                  <mat-card-subtitle>KDA {{summoner.kill}} / {{summoner.death}} / {{summoner.assist}} </mat-card-subtitle>
+                </mat-card-header>
+            </mat-card>
+            </div>
+            <div id="red-team" >
+              <mat-card class="red" *ngFor="let summoner of filterTeam(match.summoners,'red');">
+                <mat-card-header>        
+                  <img class="logo-champion"  mat-card-avatar src={{summoner.champion.img_profile}} >
+                  <mat-card-title style="display: flex; align-items: center;"> {{summoner.summonerName}} </mat-card-title>                  
+                  <mat-card-subtitle>KDA {{summoner.kill}} / {{summoner.death}} / {{summoner.assist}} </mat-card-subtitle>
+                </mat-card-header>
+            </mat-card>
+            </div>
+          
+          </mat-card-content>
+        </mat-card>
+  
+      </div>
+      
     </mat-tab>
     <mat-tab label="Register" style=" display:flex; align-items: center; flex-direction: column; margin: 50px;" > 
       

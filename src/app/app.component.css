@@ -3,12 +3,35 @@
   color: white;
 }
 
+.spinner-loading{
+  display:flex; 
+  align-items: center; 
+  flex-direction: column; 
+  margin: 50px;
+}
+
 .card-ranking{
   margin: 0 auto;
   margin-top: 15px;
   margin-bottom: 15px;
   width: 500px;
+  border: 1.5px solid #e91e63
 }
+
+.card-ranking mat-card-header{
+  display: flex; 
+  align-items: center;
+  margin-top: -31.53px !important;
+}
+
+.card-history{
+  margin: 0 auto;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  width: 500px;
+  border: 1.5px solid #e91e63
+}
+
 
 .summoner-card{
   border:1px solid white;
@@ -21,8 +44,8 @@
 }
 
 .blue{
-  color: #0080ff;
-  border-color:#0080ff;
+  color: #68d6ff;
+  border-color:#68d6ff;
 }
 
 .red{
@@ -32,4 +55,33 @@
 
 .teste mat-form-field.mat-form-field{
   width: 30%;
+}
+
+.content-history{
+  display: flex;
+}
+
+.content-history div{
+  width: 50%;
+}
+
+.content-history div mat-card{
+  margin: 8px;
+  box-shadow: none;
+}
+
+.content-history div mat-card mat-card-header{
+  display: flex; 
+  align-items: center;
+}
+
+
+.logo{
+  width: 70px;
+  height : 70px;
+}
+
+.logo-champion{
+  width: 50px;
+  height : 50px;
 }
