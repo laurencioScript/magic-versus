@@ -118,18 +118,16 @@
       <div *ngFor="let summonerRed of teamRed; index as i" class="summoner-card red" >
 
         <h2 style="text-align: right;">Summoner {{i+1}}#</h2>
-        <h4 >Select the Champion</h4>
+        <h4 >Select the Champion and Summoner</h4>
       
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline" style="margin: 0 8px;">
           <mat-label>Champion</mat-label>
           <mat-select [(ngModel)] ="summonerRed.championId" >
             <mat-option  *ngFor="let champion of champions" [value]="champion.key">{{champion.name}}</mat-option>
           </mat-select>
         </mat-form-field>
 
-        <h4 >Select the Summoner</h4>
-
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline" style="margin: 0 8px;">
           <mat-label>Summoner</mat-label>
           <mat-select [(ngModel)] ="summonerRed.summonerId" >
             <mat-option *ngFor="let summoner of summoners" [value]="summoner.id">{{summoner.summonerName}}</mat-option>
