@@ -1,16 +1,17 @@
 <div id="content">
-  <mat-tab-group  mat-align-tabs="center" animationDuration="0ms" (selectedIndexChange)="changedTab($event)">
+  <mat-tab-group  mat-align-tabs="center" animationDuration="0ms" class="tabs-gold" (selectedIndexChange)="changedTab($event)">
     <mat-tab label="Ranking"> 
 
-      <div *ngIf="loadingRanking" class="spinner-loading">
+      <div *ngIf="loadingRanking"  class="spinner-loading spinner-gold">
         <mat-spinner></mat-spinner>
       </div>
       <div *ngIf="!loadingRanking">
         <mat-card  *ngFor="let summoner of rankingSummoner; index as i"  class="card-ranking">
-          <h2 style="text-align: right;">{{i+1}}#</h2>
+          <h2 style="text-align: right;" [ngClass]="{'gold': i < 3}">{{i+1}}#</h2>
           <mat-card-header>        
             <img class="logo"  mat-card-avatar src={{summoner.profileIconId}} >
-            <mat-card-title>{{summoner.summonerName}}</mat-card-title>
+            <mat-card-title [ngClass]="{'gold': i < 3}" >{{summoner.summonerName}}</mat-card-title>           
+            <mat-card-subtitle>{{summoner.userName}}</mat-card-subtitle>
             <mat-card-subtitle>KDA {{summoner.kill}} | {{summoner.death}} | {{summoner.assist}}</mat-card-subtitle>
             <mat-card-subtitle>Vitórias : {{summoner.wins}} | Derrotas: {{summoner.lose}}</mat-card-subtitle>
           </mat-card-header>
@@ -19,17 +20,16 @@
     
     </mat-tab>
     <mat-tab label="History" > 
-      <div *ngIf="loadingMatch" class="spinner-loading">
+      <div *ngIf="loadingMatch" class="spinner-loading spinner-gold">
         <mat-spinner></mat-spinner>
       </div>
       <div *ngIf="!loadingMatch">
         <mat-card *ngFor="let match of matchs;" class="card-history">
-          <mat-card-header>
-            <mat-card-title *ngIf="filterTeam(match.summoners,'blue')[0].wins == 'true'">Vitoria do Time Azul</mat-card-title>
-            <mat-card-title *ngIf="filterTeam(match.summoners,'blue')[0].wins != 'true'">Vitoria do Time Vermelho</mat-card-title>
-          </mat-card-header>
+          <h3 class="gold" style="text-align: right;color: #e2b14b;">{{match.createAt | date:'dd/MM/yyyy'}}</h3>
           <mat-card-content class="content-history">
             <div id="blue-team" >
+              <h2 class="blue" *ngIf="filterTeam(match.summoners,'blue')[0].wins == 'true'">Vitoria</h2>
+              <h2 class="blue"  *ngIf="filterTeam(match.summoners,'blue')[0].wins != 'true'">Perdeu</h2>
               <mat-card class="blue" *ngFor="let summoner of filterTeam(match.summoners,'blue');">
                 <mat-card-header >        
                   <img class="logo-champion"  mat-card-avatar src={{summoner.champion.img_profile}} >
@@ -39,6 +39,8 @@
             </mat-card>
             </div>
             <div id="red-team" >
+              <h2 class="red"  *ngIf="filterTeam(match.summoners,'blue')[0].wins != 'true'">Vitoria</h2>
+              <h2 class="red"  *ngIf="filterTeam(match.summoners,'blue')[0].wins == 'true'">Perdeu</h2>
               <mat-card class="red" *ngFor="let summoner of filterTeam(match.summoners,'red');">
                 <mat-card-header>        
                   <img class="logo-champion"  mat-card-avatar src={{summoner.champion.img_profile}} >
@@ -68,18 +70,16 @@
       <div *ngFor="let summonerBlue of teamBlue; index as i" class="summoner-card blue" >
 
         <h2 style="text-align: right;">Summoner {{i+1}}#</h2>
-        <h4 >Select the Champion</h4>
+        <h4 >Select the Champion and Summoner</h4>
       
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline" style="margin: 0 8px;">
           <mat-label>Champion</mat-label>
           <mat-select [(ngModel)] ="summonerBlue.championId" >
             <mat-option  *ngFor="let champion of champions" [value]="champion.key">{{champion.name}}</mat-option>
           </mat-select>
         </mat-form-field>
 
-        <h4 >Select the Summoner</h4>
-
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline" style="margin: 0 8px;">
           <mat-label>Summoner</mat-label>
           <mat-select [(ngModel)] ="summonerBlue.summonerId" >
             <mat-option *ngFor="let summoner of summoners" [value]="summoner.id">{{summoner.summonerName}}</mat-option>
@@ -88,15 +88,15 @@
 
         <h4 >KDA</h4>
         <div style="display: flex; flex-direction: row;">
-          <mat-form-field appearance="outline" style="width:30% !important; margin: 0 10px;">
+          <mat-form-field appearance="outline" style="width:30% !important; margin: 0 8px;">
             <mat-label>Kill</mat-label>
             <input matInput type="number" autocomplete="off" [(ngModel)]="summonerBlue.kill" placeholder="0">
           </mat-form-field>
-          <mat-form-field appearance="outline" style="width:30% !important; margin: 0 10px;">
+          <mat-form-field appearance="outline" style="width:30% !important; margin: 0 8px;">
             <mat-label>Death</mat-label>
             <input matInput type="number" autocomplete="off" [(ngModel)]="summonerBlue.death" placeholder="0">
           </mat-form-field>
-          <mat-form-field appearance="outline" style="width:30% !important; margin: 0 10px;" >
+          <mat-form-field appearance="outline" style="width:30% !important; margin: 0 8px;" >
             <mat-label>Assist</mat-label>
             <input matInput type="number" autocomplete="off"  [(ngModel)]="summonerBlue.assist" placeholder="0">
           </mat-form-field>

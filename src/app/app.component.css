@@ -3,6 +3,19 @@
   color: white;
 }
 
+.gold{
+  color: #e2b14b;
+}
+
+.spinner-gold ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
+  stroke: #e2b14b;
+}
+
+.tabs-gold ::ng-deep .mat-ink-bar {
+  background-color: #e2b14b;
+}
+
+
 .spinner-loading{
   display:flex; 
   align-items: center; 
@@ -15,7 +28,7 @@
   margin-top: 15px;
   margin-bottom: 15px;
   width: 500px;
-  border: 1.5px solid #e91e63
+  border: 2px solid #e2b14b;
 }
 
 .card-ranking mat-card-header{
@@ -29,7 +42,7 @@
   margin-top: 15px;
   margin-bottom: 15px;
   width: 500px;
-  border: 1.5px solid #e91e63
+  border: 2px solid #e2b14b;
 }
 
 
@@ -79,9 +92,11 @@
 .logo{
   width: 70px;
   height : 70px;
+  border: 2px solid #e2b14b;
 }
 
 .logo-champion{
   width: 50px;
   height : 50px;
+  border: 2px solid #e2b14b;
 }
