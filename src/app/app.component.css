@@ -1,14 +1,15 @@
 #content{
-  background-color: black;
+  background-color: #FF934F;
   color: white;
 }
+
 
 .spinner-gold ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
   stroke: #FF934F;
 }
 
 .tabs-gold ::ng-deep .mat-ink-bar {
-  background-color: #FF934F;
+  background-color: white;
 }
 
 
