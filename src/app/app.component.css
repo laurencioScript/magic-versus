@@ -3,16 +3,12 @@
   color: white;
 }
 
-.gold{
-  color: #e2b14b;
-}
-
 .spinner-gold ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
-  stroke: #e2b14b;
+  stroke: #FF934F;
 }
 
 .tabs-gold ::ng-deep .mat-ink-bar {
-  background-color: #e2b14b;
+  background-color: #FF934F;
 }
 
 
@@ -23,13 +19,6 @@
   margin: 50px;
 }
 
-.card-ranking{
-  margin: 0 auto;
-  margin-top: 15px;
-  margin-bottom: 15px;
-  width: 500px;
-  border: 2px solid #e2b14b;
-}
 
 .card-ranking mat-card-header{
   display: flex; 
@@ -37,23 +26,17 @@
   margin-top: -31.53px !important;
 }
 
-.card-history{
-  margin: 0 auto;
-  margin-top: 15px;
-  margin-bottom: 15px;
-  width: 500px;
-  border: 2px solid #e2b14b;
-}
-
 
 .summoner-card{
-  border:1px solid white;
-  border-radius: 3px;
+  border: 1px solid white;
+  border-radius: 4px;
   margin: 0 auto;
-  margin-top: 15px;
-  margin-bottom: 15px;
-  padding: 15px;
-  width: 500px;
+  margin: 16px;
+  padding: 8px;
+  /* width: 500px; */
+  display: flex;
+  flex-direction: column;
+  width: 80%;
 }
 
 .blue{
@@ -72,31 +55,105 @@
 
 .content-history{
   display: flex;
+  flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .content-history div{
-  width: 50%;
+  width: 100%;
 }
 
 .content-history div mat-card{
-  margin: 8px;
+  margin: 8px 0;
   box-shadow: none;
 }
+
+
 
 .content-history div mat-card mat-card-header{
   display: flex; 
   align-items: center;
 }
 
+.background-bar{
+  background-color: #FF934F;
+  color: white;
+}
+
+.card-ranking{
+  margin: 16px;
+  border: 4px solid #FF934F;
+  background-color: #5E565A;
+  color: #FF934F;
+  width: 80%;
+}
+
+.card-history{
+  margin: 16px;
+  border: 4px solid #FF934F;
+  background-color: #5E565A;
+}
 
 .logo{
   width: 70px;
   height : 70px;
-  border: 2px solid #e2b14b;
+  border: 4px solid #FF934F;
 }
+
+.text-content{
+  color: white;
+}
+
 
 .logo-champion{
   width: 50px;
   height : 50px;
-  border: 2px solid #e2b14b;
+  border: 4px solid #FF934F;
+}
+
+.classification {
+  background-color: #fff;
+  border-radius: 50%;
+  padding: 2px;
+}
+
+.gold{
+  color: #D6AF36;
+}
+
+.silver{
+  color: #A7A7AD;
+}
+
+.bronze{
+  color: #824A02;
+}
+
+.center{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media (min-width: 600px) 
+{
+  .content-history div{
+    width: 50%;
+  }
+
+  .content-history div mat-card{
+    margin: 8px 0;
+    margin-right: 8px;
+    box-shadow: none;
+  }
+
+  .card-history , .card-ranking{
+    width: 500px;
+  }
+
+  .summoner-card{
+    display:block;
+    width: auto;
+  }
+  
 }

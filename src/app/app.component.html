@@ -1,68 +1,127 @@
-<div id="content">
+<div *ngIf="!sideBarMobile" id="content">
   <mat-tab-group  mat-align-tabs="center" animationDuration="0ms" class="tabs-gold" (selectedIndexChange)="changedTab($event)">
     <mat-tab label="Ranking"> 
+    </mat-tab>
+    <mat-tab label="History"> 
+    </mat-tab>
+    <mat-tab label="Register"> 
+    </mat-tab>
+  </mat-tab-group>
+</div>
 
-      <div *ngIf="loadingRanking"  class="spinner-loading spinner-gold">
-        <mat-spinner></mat-spinner>
-      </div>
-      <div *ngIf="!loadingRanking">
-        <mat-card  *ngFor="let summoner of rankingSummoner; index as i"  class="card-ranking">
-          <h2 style="text-align: right;" [ngClass]="{'gold': i < 3}">{{i+1}}#</h2>
-          <mat-card-header>        
-            <img class="logo"  mat-card-avatar src={{summoner.profileIconId}} >
-            <mat-card-title [ngClass]="{'gold': i < 3}" >{{summoner.summonerName}}</mat-card-title>           
-            <mat-card-subtitle>{{summoner.userName}}</mat-card-subtitle>
-            <mat-card-subtitle>KDA {{summoner.kill}} | {{summoner.death}} | {{summoner.assist}}</mat-card-subtitle>
-            <mat-card-subtitle>Vitórias : {{summoner.wins}} | Derrotas: {{summoner.lose}}</mat-card-subtitle>
-          </mat-card-header>
-        </mat-card>
-      </div>
+<p *ngIf="sideBarMobile">
+  <mat-toolbar class="background-bar">
+    <mat-toolbar-row>
+      <button mat-icon-button class="example-icon" (click)="sideBarChange()" aria-label="Example icon-button with menu icon">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span class="example-spacer"></span>
+      <span>Magic Versus</span>
+    </mat-toolbar-row>
     
-    </mat-tab>
-    <mat-tab label="History" > 
-      <div *ngIf="loadingMatch" class="spinner-loading spinner-gold">
-        <mat-spinner></mat-spinner>
-      </div>
-      <div *ngIf="!loadingMatch">
-        <mat-card *ngFor="let match of matchs;" class="card-history">
-          <h3 class="gold" style="text-align: right;color: #e2b14b;">{{match.createAt | date:'dd/MM/yyyy'}}</h3>
-          <mat-card-content class="content-history">
-            <div id="blue-team" >
-              <h2 class="blue" *ngIf="filterTeam(match.summoners,'blue')[0].wins == 'true'">Vitoria</h2>
-              <h2 class="blue"  *ngIf="filterTeam(match.summoners,'blue')[0].wins != 'true'">Perdeu</h2>
-              <mat-card class="blue" *ngFor="let summoner of filterTeam(match.summoners,'blue');">
-                <mat-card-header >        
-                  <img class="logo-champion"  mat-card-avatar src={{summoner.champion.img_profile}} >
-                  <mat-card-title style="display: flex; align-items: center;"> {{summoner.summonerName}} </mat-card-title>                
-                  <mat-card-subtitle>KDA {{summoner.kill}} / {{summoner.death}} / {{summoner.assist}} </mat-card-subtitle>
-                </mat-card-header>
-            </mat-card>
-            </div>
-            <div id="red-team" >
-              <h2 class="red"  *ngIf="filterTeam(match.summoners,'blue')[0].wins != 'true'">Vitoria</h2>
-              <h2 class="red"  *ngIf="filterTeam(match.summoners,'blue')[0].wins == 'true'">Perdeu</h2>
-              <mat-card class="red" *ngFor="let summoner of filterTeam(match.summoners,'red');">
-                <mat-card-header>        
-                  <img class="logo-champion"  mat-card-avatar src={{summoner.champion.img_profile}} >
-                  <mat-card-title style="display: flex; align-items: center;"> {{summoner.summonerName}} </mat-card-title>                  
-                  <mat-card-subtitle>KDA {{summoner.kill}} / {{summoner.death}} / {{summoner.assist}} </mat-card-subtitle>
-                </mat-card-header>
-            </mat-card>
-            </div>
-          
-          </mat-card-content>
+    <mat-toolbar-row *ngIf="sideBarState">     
+      <span *ngIf="optionSlider == 1" class="material-icons">
+        double_arrow
+        </span>
+      <span class="example-spacer"></span>
+      <button mat-icon-button class="example-icon" (click)="optionSliderChange(1)" aria-label="Example icon-button with menu icon">
+        <span>Ranking</span>
+      </button>
+     
+    </mat-toolbar-row>
+
+    <mat-toolbar-row *ngIf="sideBarState">  
+      <span *ngIf="optionSlider == 2" class="material-icons">
+        double_arrow
+        </span>   
+      <span class="example-spacer"></span>
+      <button mat-icon-button class="example-icon" (click)="optionSliderChange(2)" aria-label="Example icon-button with menu icon">
+        <span>History</span>
+      </button>
+    </mat-toolbar-row>
+
+    <mat-toolbar-row *ngIf="sideBarState">     
+      <span *ngIf="optionSlider == 3" class="material-icons">
+        double_arrow
+        </span>
+      <span class="example-spacer"></span>
+      <button mat-icon-button class="example-icon" (click)="optionSliderChange(3)" aria-label="Example icon-button with menu icon">
+        <span>Register</span>
+      </button>
+    </mat-toolbar-row>
+  </mat-toolbar>
+</p>
+
+<article *ngIf="optionSlider == 1">
+  <div *ngIf="loadingRanking"  class="spinner-loading spinner-gold">
+    <mat-spinner></mat-spinner>
+  </div>
+  <div  class="center" *ngIf="!loadingRanking">
+    <mat-card  *ngFor="let summoner of rankingSummoner; index as i"  class="card-ranking">
+      <h2 *ngIf="i < 3" style="text-align: right;" ><span [ngClass]="{'gold': i == 0, 'silver': i == 1, 'bronze': i == 2}" class="material-icons classification"> military_tech </span></h2>
+      <h2 *ngIf="i >= 3" style="text-align: right;" >{{i+1}}#</h2>
+     
+      <mat-card-header>        
+        <img class="logo"  mat-card-avatar src={{summoner.profileIconId}} >
+        <mat-card-title >{{summoner.userName}}</mat-card-title>           
+        <mat-card-subtitle class="text-content">{{summoner.summonerName}}</mat-card-subtitle>
+        <mat-card-subtitle class="text-content">KDA {{summoner.kill}} | {{summoner.death}} | {{summoner.assist}}</mat-card-subtitle>
+        <mat-card-subtitle class="text-content">Vitórias : {{summoner.wins}} | Derrotas: {{summoner.lose}}</mat-card-subtitle>
+      </mat-card-header>
+    </mat-card>
+  </div>
+</article>
+
+<article *ngIf="optionSlider == 2">
+  <div  class="center" >
+    <mat-card *ngFor="let match of matchs;" class="card-history">
+      <h3 class="gold" style="text-align: right;color: #FF934F;">{{match.createAt | date:'dd/MM/yyyy'}}</h3>
+      <mat-card-content class="content-history">
+        <div id="blue-team" >
+          <h2 class="blue" *ngIf="filterTeam(match.summoners,'blue')[0].wins == 'true'">Vitoria</h2>
+          <h2 class="blue"  *ngIf="filterTeam(match.summoners,'blue')[0].wins != 'true'">Perdeu</h2>
+          <mat-card class="blue" *ngFor="let summoner of filterTeam(match.summoners,'blue');">
+            <mat-card-header >        
+              <img class="logo-champion"  mat-card-avatar src={{summoner.champion.img_profile}} >
+              <mat-card-title style="display: flex; align-items: center;"> {{summoner.summonerName}} </mat-card-title>                
+              <mat-card-subtitle>KDA {{summoner.kill}} / {{summoner.death}} / {{summoner.assist}} </mat-card-subtitle>
+            </mat-card-header>
         </mat-card>
+        </div>
+        <div id="red-team" >
+          <h2 class="red"  *ngIf="filterTeam(match.summoners,'blue')[0].wins != 'true'">Vitoria</h2>
+          <h2 class="red"  *ngIf="filterTeam(match.summoners,'blue')[0].wins == 'true'">Perdeu</h2>
+          <mat-card class="red" *ngFor="let summoner of filterTeam(match.summoners,'red');">
+            <mat-card-header>        
+              <img class="logo-champion"  mat-card-avatar src={{summoner.champion.img_profile}} >
+              <mat-card-title style="display: flex; align-items: center;"> {{summoner.summonerName}} </mat-card-title>                  
+              <mat-card-subtitle>KDA {{summoner.kill}} / {{summoner.death}} / {{summoner.assist}} </mat-card-subtitle>
+            </mat-card-header>
+        </mat-card>
+        </div>
+      
+      </mat-card-content>
+    </mat-card>
   
-      </div>
-      
-    </mat-tab>
-    <mat-tab label="Register" style=" display:flex; align-items: center; flex-direction: column; margin: 50px;" > 
-      
-      <h2 class="blue" style="text-align: center; margin: 15px 0;">Team Blue</h2>
+  </div>
+
+
+</article>
+
+<article class="center" *ngIf="optionSlider == 3">
+
+  <h2 style="text-align: center; margin: 16px 0;color: white;">Secret</h2>
+
+  <mat-form-field style="color: white;">
+    <mat-label>Secret</mat-label>
+    <input matInput [(ngModel)]="secret" type="text">
+  </mat-form-field>
+
+  <h2 class="blue" style="text-align: center; margin: 16px 0;">Team Blue</h2>
       
       <div class="blue" style=" display:flex;align-items: center; flex-direction: column;">
         <mat-radio-group aria-label="Select an option" [(ngModel)]="wins" >
-          <mat-radio-button style="margin-right: 15px;" value="blue">Win</mat-radio-button>
+          <mat-radio-button style="margin-right: 16px;" value="blue">Win</mat-radio-button>
           <mat-radio-button value="red">Lose</mat-radio-button>
         </mat-radio-group>
       </div>
@@ -156,6 +215,4 @@
         <button mat-raised-button color="primary"  (click)="createMatch()">Create</button>
       </div>
 
-    </mat-tab>
-  </mat-tab-group>
-</div>
+</article>
