@@ -7,12 +7,12 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ApiService {
   private apiUrl: string = 'https://api-magic-versus.herokuapp.com';
-
+  
   constructor(public http: HttpClient,) { 
   }
 
-  getRanking(){
-    return this.http.get(`${this.apiUrl}/summoner/ranking`, )
+  getRanking(param){
+    return this.http.get(`${this.apiUrl}/summoner/ranking?order=${param}`)
     .toPromise()
   }
 

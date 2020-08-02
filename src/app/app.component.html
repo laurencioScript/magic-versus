@@ -57,6 +57,17 @@
     <mat-spinner></mat-spinner>
   </div>
   <div  class="center" *ngIf="!loadingRanking">
+
+    <div class="group-button">
+      <button mat-stroked-button color="primary" [ngClass]="{'button-white': buttonSelect == 'default'}" class="order-button"  (click)="updateRanking('default')">Default</button>
+      <button mat-stroked-button color="primary" [ngClass]="{'button-white': buttonSelect == 'wins'}" class="order-button"  (click)="updateRanking('wins')">Wins</button>
+      <button mat-stroked-button color="primary" [ngClass]="{'button-white': buttonSelect == 'lose'}" class="order-button"  (click)="updateRanking('lose')">Defeats</button>
+      <button mat-stroked-button color="primary" [ngClass]="{'button-white': buttonSelect == 'kill'}" class="order-button"  (click)="updateRanking('kill')">Kills</button>
+      <button mat-stroked-button color="primary" [ngClass]="{'button-white': buttonSelect == 'death'}" class="order-button"  (click)="updateRanking('death')">Deaths</button>
+      <button mat-stroked-button color="primary" [ngClass]="{'button-white': buttonSelect == 'assist'}" class="order-button"  (click)="updateRanking('assist')">Assists</button>
+    </div>
+
+
     <mat-card  *ngFor="let summoner of rankingSummoner; index as i"  class="card-ranking">
       <h2 *ngIf="i < 3" style="text-align: right;" ><span [ngClass]="{'gold': i == 0, 'silver': i == 1, 'bronze': i == 2}" class="material-icons classification"> military_tech </span></h2>
       <h2 *ngIf="i >= 3" style="text-align: right;" >{{i+1}}#</h2>
@@ -66,7 +77,7 @@
         <mat-card-title >{{summoner.userName}}</mat-card-title>           
         <mat-card-subtitle class="text-content">{{summoner.summonerName}}</mat-card-subtitle>
         <mat-card-subtitle class="text-content">KDA {{summoner.kill}} | {{summoner.death}} | {{summoner.assist}}</mat-card-subtitle>
-        <mat-card-subtitle class="text-content">Vitórias : {{summoner.wins}} | Derrotas: {{summoner.lose}}</mat-card-subtitle>
+        <mat-card-subtitle class="text-content">Wins : {{summoner.wins}} | Defeats: {{summoner.lose}}</mat-card-subtitle>
       </mat-card-header>
     </mat-card>
   </div>
@@ -78,9 +89,9 @@
       <h3 class="gold" style="text-align: right;color: #FF934F;">{{match.createAt | date:'dd/MM/yyyy'}}</h3>
       <mat-card-content class="content-history">
         <div id="blue-team" >
-          <h2 class="blue" *ngIf="filterTeam(match.summoners,'blue')[0].wins == 'true'">Vitoria</h2>
-          <h2 class="blue"  *ngIf="filterTeam(match.summoners,'blue')[0].wins != 'true'">Perdeu</h2>
-          <mat-card class="blue" *ngFor="let summoner of filterTeam(match.summoners,'blue');">
+          <h2 class="blue" *ngIf="filterTeam(match.summoners,'blue')[0].wins == 'true'">Wins</h2>
+          <h2 class="blue"  *ngIf="filterTeam(match.summoners,'blue')[0].wins != 'true'">Lose</h2>
+          <mat-card class="orange" *ngFor="let summoner of filterTeam(match.summoners,'blue');">
             <mat-card-header >        
               <img class="logo-champion"  mat-card-avatar src={{summoner.champion.img_profile}} >
               <mat-card-title style="display: flex; align-items: center;"> {{summoner.summonerName}} </mat-card-title>                
@@ -89,9 +100,9 @@
         </mat-card>
         </div>
         <div id="red-team" >
-          <h2 class="red"  *ngIf="filterTeam(match.summoners,'blue')[0].wins != 'true'">Vitoria</h2>
-          <h2 class="red"  *ngIf="filterTeam(match.summoners,'blue')[0].wins == 'true'">Perdeu</h2>
-          <mat-card class="red" *ngFor="let summoner of filterTeam(match.summoners,'red');">
+          <h2 class="red"  *ngIf="filterTeam(match.summoners,'blue')[0].wins != 'true'">Wins</h2>
+          <h2 class="red"  *ngIf="filterTeam(match.summoners,'blue')[0].wins == 'true'">Lose</h2>
+          <mat-card class="orange" *ngFor="let summoner of filterTeam(match.summoners,'red');">
             <mat-card-header>        
               <img class="logo-champion"  mat-card-avatar src={{summoner.champion.img_profile}} >
               <mat-card-title style="display: flex; align-items: center;"> {{summoner.summonerName}} </mat-card-title>                  

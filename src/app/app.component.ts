@@ -36,6 +36,7 @@ export class AppComponent {
   sideBarState : boolean = false;
   optionSlider : number = 1;
   secret : string;
+  buttonSelect : string = 'default';
 
   constructor(private apiService: ApiService){    
     this.load()
@@ -70,8 +71,13 @@ export class AppComponent {
     this.optionSliderChange(value+1);
   }
 
-  async updateRanking(){
-    this.rankingSummoner = await this.apiService.getRanking();
+  async updateRanking(param = 'default'){
+    this.buttonSelect = param;
+    if(param != 'default'){
+      this.loadingRanking = true;
+    }
+    this.rankingSummoner = await this.apiService.getRanking(param);
+    this.loadingRanking = false;
   }
 
   async updateMatch(){

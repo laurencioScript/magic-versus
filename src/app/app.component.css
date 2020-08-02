@@ -3,6 +3,33 @@
   color: white;
 }
 
+.order-button{
+  color: #FF934F;
+  border: 1px solid #FF934F;
+}
+
+.button-white{
+  color: white;
+  border: 1px solid white;
+}
+
+.border-blue{
+  border: 5px solid blue !important;
+}
+
+.border-red{
+  border: 5px solid red !important;
+}
+
+.group-button{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.group-button button{
+  margin: 16px 8px;
+}
 
 .spinner-gold ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
   stroke: #FF934F;
@@ -38,6 +65,11 @@
   display: flex;
   flex-direction: column;
   width: 80%;
+}
+
+.orange{
+  color: #FF934F;
+  border-color:#FF934F;
 }
 
 .blue{
